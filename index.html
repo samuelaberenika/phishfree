@@ -8,8 +8,25 @@
 </head>
 <body>
   <div id="app">
-    <h1>PhishFree</h1>
-    <button id="btn-start">Start</button>
+
+    <!-- ===================== LANDING SCREEN ===================== -->
+    <section id="screen-landing" class="screen active">
+      <h1>PhishFree</h1>
+      <p>Train your instincts. Spot the threat.</p>
+      <button id="btn-start">Start Training</button>
+    </section>
+
+    <!-- ===================== GAME SCREEN ===================== -->
+    <section id="screen-game" class="screen" hidden>
+      <div id="email-card">
+        <p><strong>From:</strong> <span id="email-from"></span></p>
+        <p><strong>Subject:</strong> <span id="email-subject"></span></p>
+        <div id="email-body"></div>
+      </div>
+      <button id="btn-phishing">Phishing</button>
+      <button id="btn-safe">Safe</button>
+    </section>
+
   </div>
   <script src="data.js"></script>
   <script src="game.js"></script>
