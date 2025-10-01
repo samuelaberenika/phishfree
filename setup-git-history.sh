@@ -806,26 +806,25 @@ git add .
 commit "bigger email card and score tracker on game screen" "2025-10-14T13:48:51+01:00"
 
 
-# Commit 23 — netlify config and readme
-cat > netlify.toml << 'EOF'
-[build]
-  publish = "."
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+# Commit 23 — vercel config and readme
+cat > vercel.json << 'VEOF'
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options",        "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",     "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ]
+}
+VEOF
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-EOF
-
-cat > README.md << 'EOF'
+cat > README.md << 'REOF'
 # PhishFree
 
 **Train your instincts. Spot the threat.**
@@ -833,7 +832,7 @@ cat > README.md << 'EOF'
 A gamified phishing awareness SPA built with vanilla JS.
 
 ## Live Demo
-> Add your Netlify URL here after deployment
+> Add your Vercel URL here after deployment
 
 ## Features
 - 41 emails across 4 categories: Corporate, Bank, Social Media, Academic
@@ -843,20 +842,23 @@ A gamified phishing awareness SPA built with vanilla JS.
 - Progress bar, responsive layout, keyboard shortcuts (P/S)
 
 ## Stack
-HTML · CSS · Vanilla JavaScript · Forma DJR typeface
+HTML · CSS · Vanilla JavaScript · Forma DJR + Montserrat typefaces
 Zero dependencies. Zero build step.
 
 ## Run Locally
-```bash
+\`\`\`bash
 npx serve .
-```
+\`\`\`
 
-## Deploy
-Drag folder to [app.netlify.com/drop](https://app.netlify.com/drop)
-EOF
+## Deploy to Vercel
+1. Push to GitHub
+2. Import repo at vercel.com/new
+3. Leave all settings as default
+4. Deploy
+REOF
 
 git add .
-commit "netlify config and readme" "2025-10-14T16:22:09+01:00"
+commit "vercel config and readme" "2025-10-14T16:22:09+01:00"
 
 
 # Commit 24 — accessibility pass and focus states
@@ -874,9 +876,14 @@ echo ""
 echo "Restoring fonts to original location..."
 mkdir -p "$(dirname "$FONTS_STASH")/phishfree-repo/fonts" 2>/dev/null || true
 
+# Rename to main to match GitHub default branch
+git branch -m master main
+
 echo ""
-echo "================================================================"
 echo "Done! $(git log --oneline | wc -l) commits created."
-echo "================================================================"
 echo ""
 git log --oneline
+echo ""
+echo "Next: push to GitHub"
+echo "  git remote add origin https://github.com/YOUR_USERNAME/phishfree.git"
+echo "  git push --force origin main"
