@@ -1,9 +1,10 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
-:root { --bg: #111; --surface: #1a1a1a; --text: #f0f0f0; --accent: #00c4a7; }
-body { font-family: sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+:root { --bg: #0b0e29; --surface: #0d1a35; --text: #f0f6f7; --muted: #89aec8; --accent: #7b6727; }
+body { font-family: sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 #app { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
 .screen { width: 100%; max-width: 540px; }
 .screen[hidden] { display: none; }
-h1 { font-size: 40px; margin-bottom: 16px; }
-button { background: var(--accent); color: #111; border: none; padding: 12px 28px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; }
-#email-card { background: var(--surface); border-radius: 8px; padding: 24px; margin-bottom: 24px; }
+.brand-name    { font-size: clamp(40px, 9vw, 64px); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.04em; }
+.brand-tagline { font-size: 11px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 40px; }
+button { background: var(--accent); color: var(--text); border: none; padding: 14px 32px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-transform: uppercase; }
+#email-card { background: var(--surface); border-radius: 10px; padding: 24px; margin-bottom: 24px; border: 1px solid rgba(137,174,200,0.1); }
