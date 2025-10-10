@@ -8,64 +8,8 @@
 </head>
 <body>
   <div id="app">
-
-    <!-- ===================== LANDING SCREEN ===================== -->
-    <section id="screen-landing" class="screen active">
-      <div class="screen-inner">
-        <div class="brand">
-          <h1 class="brand-name">PhishFree</h1>
-          <p class="brand-tagline">Train your instincts. Spot the threat.</p>
-        </div>
-        <button id="btn-start" class="btn btn-primary">Start Training</button>
-        <p id="landing-high-score"></p>
-      </div>
-    </section>
-
-    <!-- ===================== GAME SCREEN ===================== -->
-    <section id="screen-game" class="screen" hidden>
-      <div class="screen-inner screen-inner--game">
-        <div class="game-header">
-          <span id="game-progress-label">Email 1 of 10</span>
-          <span id="game-score-label">Score: 0</span>
-        </div>
-        <article id="email-card" class="email-card">
-          <div class="email-header">
-            <p><span class="email-field-label">From</span> <span id="email-from"></span></p>
-            <p><span class="email-field-label">Subject</span> <span id="email-subject" class="email-subject"></span></p>
-          </div>
-          <div id="email-body" class="email-body"></div>
-        </article>
-        <div class="classify-actions">
-          <button id="btn-phishing" class="btn-classify btn-phishing">Mark as Phishing</button>
-          <button id="btn-safe"     class="btn-classify btn-safe">Mark as Safe</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== FEEDBACK SCREEN ===================== -->
-    <section id="screen-feedback" class="screen" hidden>
-      <div class="screen-inner">
-        <div id="feedback-panel" class="feedback-panel">
-          <span id="feedback-icon"></span>
-          <span id="feedback-text"></span>
-          <p id="feedback-score-delta"></p>
-          <p id="feedback-explanation"></p>
-        </div>
-        <button id="btn-continue" class="btn btn-primary">Continue</button>
-      </div>
-    </section>
-
-    <!-- ===================== END SCREEN ===================== -->
-    <section id="screen-end" class="screen" hidden>
-      <div class="screen-inner">
-        <h2 id="end-title"></h2>
-        <p>Score: <span id="end-score"></span></p>
-        <p>Best: <span id="end-high-score"></span></p>
-        <p>Accuracy: <span id="end-accuracy"></span></p>
-        <button id="btn-play-again" class="btn btn-primary">Play Again</button>
-      </div>
-    </section>
-
+    <h1>PhishFree</h1>
+    <button id="btn-start">Start</button>
   </div>
   <script src="data.js"></script>
   <script src="game.js"></script>
