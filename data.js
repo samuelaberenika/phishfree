@@ -42,3 +42,38 @@ const EMAIL_DATA = [
     indicators: 'No UK university uses .com. They use .ac.uk domains.'
   }
 ];
+
+EMAIL_DATA.push(
+  {
+    id: 'corp-e-3', category: 'corporate', difficulty: 'easy',
+    sender: 'payroll@payroll-processing-secure.net',
+    subject: 'Action Required: Update your bank details',
+    body: 'Dear Employee,\n\nRe-enter banking info:\nhttp://payroll-update.payroll-processing-secure.net/update\n\nPayroll Dept',
+    isPhishing: true,
+    indicators: 'payroll-processing-secure.net is not a company domain. Never submit bank details via email link.'
+  },
+  {
+    id: 'bank-e-2', category: 'bank', difficulty: 'easy',
+    sender: 'statements@online.barclays.co.uk',
+    subject: 'Your October statement is ready',
+    body: 'Your October statement is ready.\n\nLog in at barclays.co.uk — do not click links in emails.\n\nBarclays Bank UK',
+    isPhishing: false,
+    indicators: 'Legitimate. Real barclays.co.uk domain. Explicitly says to type the address directly.'
+  },
+  {
+    id: 'social-e-2', category: 'social', difficulty: 'easy',
+    sender: 'info@twitter.com',
+    subject: 'Welcome to X — Your account is ready',
+    body: 'Welcome to X!\n\nYour account @jsmith92 is ready.\n\nIf you did not create this account you can safely ignore this email.\n\nThe X Team',
+    isPhishing: false,
+    indicators: 'Legitimate. Real twitter.com domain. No credentials requested.'
+  },
+  {
+    id: 'acad-e-2', category: 'academic', difficulty: 'easy',
+    sender: 'library@plymouth.ac.uk',
+    subject: 'Library book due for return — Reminder',
+    body: 'Dear Student,\n\nYour book is due in 3 days. Renew at plymouth.ac.uk/library.\n\nPlymouth University Library',
+    isPhishing: false,
+    indicators: 'Legitimate. Real .ac.uk domain. No credentials requested.'
+  }
+);
