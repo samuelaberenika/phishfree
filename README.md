@@ -18,25 +18,13 @@ A gamified phishing awareness SPA built with vanilla JS.
 HTML · CSS · Vanilla JavaScript · Forma DJR + Montserrat typefaces
 Zero dependencies. Zero build step.
 
-## File Structure
-```
-phishfree/
-├── fonts/               ← Forma DJR .ttf files
-├── landing.html         ← Training missions / marketing page
-├── index.html           ← The game
-├── style.css
-├── data.js
-├── game.js
-└── ui.js
-```
-
 ## Run Locally
-```bash
+\`\`\`bash
 npx serve .
-```
+\`\`\`
 
 ## Deploy to Vercel
 1. Push to GitHub
 2. Import repo at vercel.com/new
-3. Leave all settings as default — Vercel will detect it as a static site
+3. Leave all settings as default
 4. Deploy
