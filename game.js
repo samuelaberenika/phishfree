@@ -26,3 +26,10 @@ class GameController {
   _sampleEmails() { return this._shuffle(EMAIL_DATA.filter(e => e.difficulty === this.difficulty)).slice(0, 10); }
   _shuffle(arr)   { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 }
+
+GameController.prototype._loadHighScore = function () {
+  try { const raw = localStorage.getItem('phishfree_highscore'); const p = parseInt(raw, 10); return isNaN(p) || p < 0 ? 0 : p; } catch { return 0; }
+};
+GameController.prototype._saveHighScore = function (score) {
+  try { const safe = parseInt(score, 10); if (!isNaN(safe)) localStorage.setItem('phishfree_highscore', safe.toString()); } catch {}
+};
