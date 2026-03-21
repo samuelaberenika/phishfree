@@ -1,4 +1,4 @@
-/*  PhishFree — style.css
+/*  PhishFree - style.css
    Aesthetic  : Braun Industrial · Severance · Dieter Rams
    Display    : Montserrat (headings + display numbers)
    UI Chrome  : Forma DJR (labels, buttons, small text)
@@ -9,7 +9,7 @@
 
 /*  FONTS  */
 
-/* Forma DJR — variable font covers all weights 100–900 */
+/* Forma DJR - variable font covers all weights 100–900 */
 @font-face {
   font-family: 'FormaDJR';
   src: url('fonts/FormaDJRVariable-VF-Testing.ttf') format('truetype');
@@ -67,22 +67,22 @@
   font-display: swap;
 }
 
-/* Montserrat — display headings and bold numbering */
-/* Inter — email body only, prioritises legibility at small sizes */
+/* Montserrat - display headings and bold numbering */
+/* Inter - email body only, prioritises legibility at small sizes */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
 
 /*  TOKENS  */
 
 :root {
-  /* Shell — the machine body */
+  /* Shell - the machine body */
   --shell-bg:        #1e1e1b;
   --shell-surface:   #272723;
   --shell-raised:    #2e2e29;
   --shell-border:    rgba(255, 255, 255, 0.06);
   --shell-border-md: rgba(255, 255, 255, 0.10);
 
-  /* Card — the cream document */
+  /* Card - the cream document */
   --card-bg:         #edeade;
   --card-header:     #e3dfd2;
   --card-divider:    #cdc9bb;
@@ -91,13 +91,13 @@
   --card-faint:      #9b9488;
   --card-border:     #c2bead;
 
-  /* VFD teal — single accent, used sparingly */
+  /* VFD teal - single accent, used sparingly */
   --teal:            #00c4a7;
   --teal-dim:        rgba(0, 196, 167, 0.10);
   --teal-border:     rgba(0, 196, 167, 0.30);
   --teal-glow:       rgba(0, 196, 167, 0.15);
 
-  /* Braun orange — danger / phishing only */
+  /* Braun orange - danger / phishing only */
   --orange:          #e8430a;
   --orange-dim:      rgba(232, 67, 10, 0.10);
   --orange-border:   rgba(232, 67, 10, 0.30);
@@ -111,7 +111,7 @@
   --diff-medium:     #c8a84b;
   --diff-hard:       #e8430a;
 
-  /* Typography — three-tier system */
+  /* Typography - three-tier system */
   --font-display: 'Montserrat', 'Helvetica Neue', sans-serif;
   --font-ui:      'FormaDJR', 'Helvetica Neue', Helvetica, sans-serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -166,7 +166,7 @@ button {
 .screen.active  { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
 .screen.exit    { opacity: 0; transform: translateY(-10px); transition: opacity 180ms ease-in, transform 180ms ease-in; pointer-events: none; }
 
-.screen-inner       { width: 100%; max-width: 520px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.screen-inner       { width: 100%; max-width: 640px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .screen-inner--game { max-width: 780px; gap: 20px; }
 
 /* Montserrat for screen headings */
@@ -198,21 +198,21 @@ button {
 .btn:disabled              { opacity: 0.3; cursor: not-allowed; transform: none !important; }
 .btn:active:not(:disabled) { transform: scale(0.975); }
 
-/* Large variant — landing CTA */
+/* Large variant - landing CTA */
 .btn-lg { font-size: 14px; padding: 18px 56px; min-height: 58px; letter-spacing: 0.14em; }
 
-/* Primary — teal fill */
+/* Primary - teal fill */
 .btn-primary                      { background: var(--teal); color: #0e0e0c; font-weight: 600; border: 1px solid transparent; }
 .btn-primary:hover:not(:disabled) { background: #00d4b5; box-shadow: 0 0 20px var(--teal-glow); }
 
-/* Ghost — outline only */
+/* Ghost - outline only */
 .btn-ghost                      { background: transparent; color: rgba(255,255,255,0.32); border: 1px solid rgba(255,255,255,0.06); }
 .btn-ghost:hover:not(:disabled) { border-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.55); }
 
 
 /*  LANDING SCREEN  */
 
-/* Brand block — centred, stacked vertically */
+/* Brand block - centred, stacked vertically */
 .brand { display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
 .brand::after { content: ''; display: block; width: 48px; height: 1px; background: rgba(255,255,255,0.20); margin-top: 4px; }
 
@@ -306,13 +306,32 @@ button {
 
 /*  GAME SCREEN  */
 
-/* Header row — progress label, score, and progress bar */
+/* Header row - progress label, score, and progress bar */
 .game-header { width: 100%; display: flex; flex-direction: column; gap: 8px; }
 .game-meta   { display: flex; justify-content: space-between; align-items: center; }
 .meta-label  { font-family: var(--font-ui); font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.26); letter-spacing: 0.12em; text-transform: uppercase; }
 .meta-score  { color: var(--teal); }
 
-/* Progress bar — thin and precise like a Braun meter */
+/* Exit button - top left of game header */
+.btn-back-home {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color 160ms;
+  cursor: pointer;
+}
+
+.btn-back-home:hover { color: rgba(255, 255, 255, 0.60); }
+
+/* Progress bar - thin and precise like a Braun meter */
 .progress-track { width: 100%; height: 2px; background: var(--shell-raised); border-radius: 1px; overflow: hidden; }
 .progress-fill  { height: 100%; background: var(--teal); width: 10%; transition: width 280ms cubic-bezier(0.4,0,0.2,1); }
 
@@ -342,7 +361,7 @@ button {
   border: 1px solid var(--card-border);
   border-radius: 4px;
   overflow: hidden;
-  /* Layered shadow — lifts the document off the dark surface */
+  /* Layered shadow - lifts the document off the dark surface */
   box-shadow:
     0 0 0 1px rgba(0,0,0,0.10),
     0 2px 4px rgba(0,0,0,0.40),
@@ -351,7 +370,7 @@ button {
   transition: box-shadow 240ms ease-out;
 }
 
-/* Header zone — gradient from slightly darker to card-header */
+/* Header zone - gradient from slightly darker to card-header */
 .email-header {
   padding: 24px 32px 20px;
   background: linear-gradient(180deg, #d9d4c4 0%, var(--card-header) 55%);
@@ -376,7 +395,7 @@ button {
 .email-field-label { font-family: var(--font-ui); font-size: 9px; font-weight: 500; color: var(--card-faint); letter-spacing: 0.18em; text-transform: uppercase; padding-top: 1px; }
 .email-field-value { font-family: var(--font-body); font-size: 13px; color: var(--card-muted); line-height: 1.4; word-break: break-all; letter-spacing: 0.01em; }
 
-/* Subject is the document's title — Montserrat, prominent */
+/* Subject is the document's title - Montserrat, prominent */
 .email-subject {
   font-family: var(--font-display);
   font-size: 18px;
@@ -389,7 +408,7 @@ button {
 
 .email-divider { height: 1px; background: var(--card-divider); }
 
-/* Body — Inter for readability, dark text on cream */
+/* Body - Inter for readability, dark text on cream */
 /* Subtle lined-paper texture via repeating gradient */
 .email-body {
   padding: 28px 32px;
@@ -422,7 +441,7 @@ button {
 
 .classify-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
 
-/* Base — shared between phishing and safe */
+/* Base - shared between phishing and safe */
 .btn-classify {
   font-family: var(--font-ui);
   font-size: 11px;
@@ -445,11 +464,11 @@ button {
 .btn-classify:disabled              { opacity: 0.28; cursor: not-allowed; transform: none !important; }
 .btn-classify:active:not(:disabled) { transform: scale(0.975); }
 
-/* Phishing — Braun orange, left border stripe as indicator */
+/* Phishing - Braun orange, left border stripe as indicator */
 .btn-phishing                      { background: var(--orange-dim); color: #f5a882; border-color: var(--orange-border); border-left: 3px solid var(--orange); }
 .btn-phishing:hover:not(:disabled) { background: rgba(232,67,10,0.16); border-color: rgba(232,67,10,0.45); }
 
-/* Safe — VFD teal, left border stripe as indicator */
+/* Safe - VFD teal, left border stripe as indicator */
 .btn-safe                      { background: var(--teal-dim); color: #5de0ce; border-color: var(--teal-border); border-left: 3px solid var(--teal); }
 .btn-safe:hover:not(:disabled) { background: rgba(0,196,167,0.16); border-color: rgba(0,196,167,0.45); }
 
@@ -458,7 +477,7 @@ button {
 
 /*  FEEDBACK SCREEN  */
 
-/* Printout aesthetic — top border coloured by result */
+/* Printout aesthetic - top border coloured by result */
 .feedback-panel {
   width: 100%;
   background: var(--card-bg);
@@ -476,26 +495,26 @@ button {
 .feedback-panel.correct   { border-top-color: var(--correct); }
 .feedback-panel.incorrect { border-top-color: var(--incorrect); }
 
-/* Verdict row — icon, result text, score delta */
+/* Verdict row - icon, result text, score delta */
 .feedback-verdict {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
+  gap: 20px;
+  padding: 28px 32px;
   background: var(--shell-surface);
   border-bottom: 1px solid var(--shell-border);
 }
 
 .feedback-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 3px;
+  width: 52px;
+  height: 52px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-ui);
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 700;
   flex-shrink: 0;
   border: 1px solid transparent;
 }
@@ -506,15 +525,15 @@ button {
 .feedback-verdict-text { display: flex; flex-direction: column; gap: 3px; }
 
 /* Montserrat for feedback result label */
-.feedback-result       { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
+.feedback-result       { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; text-transform: uppercase; }
 .feedback-panel.correct   .feedback-result { color: var(--correct); }
 .feedback-panel.incorrect .feedback-result { color: var(--incorrect); }
-.feedback-delta { font-family: var(--font-ui); font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.40); letter-spacing: 0.06em; }
+.feedback-delta { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.80); letter-spacing: -0.01em; margin-top: 4px; }
 
-/* Explanation zone — Inter body text on cream */
-.feedback-body          { padding: 20px 24px 24px; background: var(--card-bg); }
+/* Explanation zone - Inter body text on cream */
+.feedback-body          { padding: 28px 32px 32px; background: var(--card-bg); }
 .feedback-section-label { font-family: var(--font-ui); font-size: 9px; font-weight: 400; color: var(--card-faint); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
-.feedback-explanation   { font-family: var(--font-body); font-size: 14px; color: var(--card-text); line-height: 1.80; }
+.feedback-explanation   { font-family: var(--font-body); font-size: 15px; color: var(--card-text); line-height: 1.80; }
 
 
 /*  END SCREEN  */
@@ -528,9 +547,9 @@ button {
 
 .end-stat-label { font-family: var(--font-ui); font-size: 9px; font-weight: 300; color: rgba(255,255,255,0.20); letter-spacing: 0.16em; text-transform: uppercase; }
 
-/* Bold display numbers — Montserrat 700 */
+/* Bold display numbers - Montserrat 700 */
 .end-stat-value { font-family: var(--font-display); font-size: clamp(28px,5vw,38px); font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: -0.03em; line-height: 1; }
-.end-stat-best  { color: var(--teal); } /* high score in teal — the VFD glow */
+.end-stat-best  { color: var(--teal); } /* high score in teal - the VFD glow */
 
 /* New record badge */
 .new-record {
@@ -560,7 +579,7 @@ button {
   .email-header, .feedback-verdict, .feedback-body { padding: 16px; }
 }
 
-/* Tablets — 3-column difficulty grid */
+/* Tablets - 3-column difficulty grid */
 @media (min-width: 600px) {
   .difficulty-grid { grid-template-columns: repeat(3,1fr); }
 }

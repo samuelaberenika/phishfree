@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PhishFree — Can You Spot the Threat?</title>
+  <title>PhishFree - Can You Spot the Threat?</title>
   <meta name="description" content="Train your instincts to identify phishing emails. Interactive cybersecurity awareness game.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,19 +40,19 @@
           <p class="screen-subtitle">Choose your training intensity</p>
         </div>
         <div class="difficulty-grid" role="radiogroup" aria-label="Difficulty selection">
-          <button class="difficulty-card" data-difficulty="easy" aria-label="Easy — 10 points per email">
+          <button class="difficulty-card" data-difficulty="easy" aria-label="Easy - 10 points per email">
             <span class="diff-label diff-easy">Easy</span>
             <span class="diff-pts">10 pts / email</span>
             <span class="diff-desc">Obvious red flags. Build your foundations.</span>
             <span class="diff-max">Max score: 100</span>
           </button>
-          <button class="difficulty-card" data-difficulty="medium" aria-label="Medium — 25 points per email">
+          <button class="difficulty-card" data-difficulty="medium" aria-label="Medium - 25 points per email">
             <span class="diff-label diff-medium">Medium</span>
             <span class="diff-pts">25 pts / email</span>
             <span class="diff-desc">Subtle cues. Test your real awareness.</span>
             <span class="diff-max">Max score: 250</span>
           </button>
-          <button class="difficulty-card" data-difficulty="hard" aria-label="Hard — 50 points per email">
+          <button class="difficulty-card" data-difficulty="hard" aria-label="Hard - 50 points per email">
             <span class="diff-label diff-hard">Hard</span>
             <span class="diff-pts">50 pts / email</span>
             <span class="diff-desc">Near-perfect forgeries. Expert level.</span>
@@ -69,6 +69,12 @@
 
         <header class="game-header">
           <div class="game-meta">
+            <a href="index.html" class="btn-back-home" aria-label="Return to home">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Exit
+            </a>
             <span id="game-progress-label" class="meta-label" aria-live="polite">Email 1 of 10</span>
             <span id="game-score-label" class="meta-label meta-score">Score: 0</span>
           </div>
