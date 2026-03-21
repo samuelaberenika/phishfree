@@ -2,41 +2,61 @@
 
 **Train your instincts. Spot the threat.**
 
-A gamified phishing awareness SPA built with vanilla JS.
+A gamified phishing awareness Single Page Application built with Vanilla JavaScript.
 
 ## Live Demo
-> Add your Vercel URL here after deployment
+> [phishfree-delta.vercel.app](https://phishfree-delta.vercel.app/)
+
+## About
+PhishFree is a browser-based SPA designed to help university students and staff 
+recognise phishing emails. Users classify emails across four attack categories as 
+either phishing or safe, receiving immediate feedback and educational explanations 
+after each decision. Built as part of COMP1004 Computing Practice at the 
+University of Plymouth.
 
 ## Features
 - 41 emails across 4 categories: Corporate, Bank, Social Media, Academic
-- 3 difficulty levels - Easy (10pts), Medium (25pts), Hard (50pts)
+- 3 difficulty levels — Easy (10pts), Medium (25pts), Hard (50pts)
 - Immediate feedback with phishing indicator explanations
+- Category-specific training missions
 - High score persistence via LocalStorage
-- Progress bar, responsive layout, keyboard shortcuts (P/S)
+- JSON flat file input (emails.json) and output (phishfree_result.json)
+- Progress bar, responsive layout, keyboard shortcuts (P / S)
 
 ## Stack
-HTML · CSS · Vanilla JavaScript · Forma DJR + Montserrat typefaces
-Zero dependencies. Zero build step.
+HTML · CSS · Vanilla JavaScript
 
 ## File Structure
 ```
 phishfree/
 ├── fonts/               ← Forma DJR .ttf files
-├── landing.html         ← Training missions / marketing page
-├── index.html           ← The game
+├── emails.json          ← Email dataset (JSON flat file input)
+├── index.html           ← Single Page Application (all screens)
 ├── style.css
-├── data.js
-├── game.js
-└── ui.js
+├── data.js              ← Loads emails.json via fetch()
+├── game.js              ← GameController logic and scoring
+└── ui.js                ← Screen management and DOM rendering
 ```
 
-## Run Locally
+## How to Run Locally
+This app loads `emails.json` via `fetch()` and requires a local server.
+
+**Option 1 — VS Code Live Server**
+Install the Live Server extension, right-click `index.html`, select Open with Live Server.
+
+**Option 2 — Node.js**
 ```bash
 npx serve .
 ```
 
-## Deploy to Vercel
-1. Push to GitHub
-2. Import repo at vercel.com/new
-3. Leave all settings as default - Vercel will detect it as a static site
-4. Deploy
+Then open `http://localhost:3000` in your browser.
+
+## Author
+Samuel Aberenika — University of Plymouth
+```
+
+Copy that directly into your `README.md`, replacing everything. Then commit all outstanding changes:
+```
+git add .
+git commit -m "Merge to single page application and update README"
+git push
