@@ -28,10 +28,7 @@ University of Plymouth.
 
 ## Stack
 
-# <<<<<<< Updated upstream
-
-> > > > > > > Stashed changes
-> > > > > > > HTML · CSS · Vanilla JavaScript
+HTML · CSS · Vanilla JavaScript
 
 ## File Structure
 
@@ -48,19 +45,12 @@ phishfree/
 
 ## How to Run Locally
 
-# <<<<<<< Updated upstream
-
-> > > > > > > Stashed changes
-> > > > > > > This app loads `emails.json` via `fetch()` and requires a local server.
+This app loads `emails.json` via `fetch()` and requires a local server.
 
 **Option 1 — VS Code Live Server**
 Install the Live Server extension, right-click `index.html`, select Open with Live Server.
 
 **Option 2 — Node.js**
-<<<<<<< Updated upstream
-=======
-
-> > > > > > > Stashed changes
 
 ```bash
 npx serve .
@@ -70,22 +60,4 @@ Then open `http://localhost:3000` in your browser.
 
 ## Author
 
-<<<<<<< Updated upstream
 Samuel Aberenika — University of Plymouth
-=======
-
-Samuel Aberenika — University of Plymouth
-
-> > > > > > > Stashed changes
-
-```
-
-Copy that directly into your `README.md`, replacing everything. Then commit all outstanding changes:
-```
-
-# <<<<<<< Updated upstream
-
-> > > > > > > Stashed changes
-> > > > > > > git add .
-> > > > > > > git commit -m "Merge to single page application and update README"
-> > > > > > > git push
