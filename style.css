@@ -287,12 +287,9 @@ button {
 .difficulty-card:focus-visible { outline: 1px solid var(--teal); outline-offset: 2px; }
 
 /* Coloured left border on hover and when selected */
-.difficulty-card[data-difficulty="easy"]:hover,
-.difficulty-card[data-difficulty="easy"].selected   { border-left-color: var(--diff-easy); }
-.difficulty-card[data-difficulty="medium"]:hover,
-.difficulty-card[data-difficulty="medium"].selected { border-left-color: var(--diff-medium); }
-.difficulty-card[data-difficulty="hard"]:hover,
-.difficulty-card[data-difficulty="hard"].selected   { border-left-color: var(--diff-hard); }
+.difficulty-card[data-difficulty="easy"]   { border-left-color: var(--diff-easy); }
+.difficulty-card[data-difficulty="medium"] { border-left-color: var(--diff-medium); }
+.difficulty-card[data-difficulty="hard"]   { border-left-color: var(--diff-hard); }
 
 /* Montserrat for difficulty level names */
 .diff-label  { font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
@@ -600,4 +597,8 @@ button {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; }
   .progress-fill          { transition: none !important; }
+}
+
+#screen-home:not(.active) {
+  display: none !important;
 }
