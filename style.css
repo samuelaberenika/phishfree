@@ -1,100 +1,584 @@
-@font-face { font-family: 'FormaDJR'; src: url('fonts/FormaDJRVariable-VF-Testing.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+/*  PhishFree — style.css
+   Aesthetic  : Braun Industrial · Severance · Dieter Rams
+   Display    : Montserrat (headings + display numbers)
+   UI Chrome  : Forma DJR (labels, buttons, small text)
+   Email Body : Inter (legibility at small sizes)
+   Theme      : Dark grey machine shell · Cream document card
+  */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --shell-bg: #1e1e1b; --shell-surface: #272723; --shell-raised: #2e2e29;
-  --shell-border: rgba(255,255,255,0.06);
-  --card-bg: #edeade; --card-header: #e3dfd2; --card-divider: #cdc9bb;
-  --card-text: #1a1814; --card-muted: #6b6455; --card-faint: #9b9488; --card-border: #c2bead;
-  --teal: #00c4a7; --teal-dim: rgba(0,196,167,0.10); --teal-border: rgba(0,196,167,0.30); --teal-glow: rgba(0,196,167,0.15);
-  --orange: #e8430a; --orange-dim: rgba(232,67,10,0.10); --orange-border: rgba(232,67,10,0.30);
-  --correct: #00c4a7; --incorrect: #e8430a;
-  --diff-easy: #00c4a7; --diff-medium: #c8a84b; --diff-hard: #e8430a;
-  --font-ui: 'FormaDJR', 'Helvetica Neue', sans-serif;
-  --font-body: 'Inter', sans-serif;
+
+/*  FONTS  */
+
+/* Forma DJR — variable font covers all weights 100–900 */
+@font-face {
+  font-family: 'FormaDJR';
+  src: url('fonts/FormaDJRVariable-VF-Testing.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
-html { font-size: 16px; color-scheme: dark; }
-body { font-family: var(--font-ui); background: var(--shell-bg); color: rgba(255,255,255,0.75); min-height: 100dvh; -webkit-font-smoothing: antialiased; }
-button { border: none; background: none; font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+/* Individual weight fallbacks */
+@font-face {
+  font-family: 'FormaDJR';
+  src: url('fonts/FormaDJRBanner-ExtraLight-Testing.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FormaDJR';
+  src: url('fonts/FormaDJRBanner-Light-Testing.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FormaDJR';
+  src: url('fonts/FormaDJRBanner-Regular-Testing.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FormaDJR';
+  src: url('fonts/FormaDJRBanner-Medium-Testing.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FormaDJR';
+  src: url('fonts/FormaDJRBanner-Bold-Testing.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FormaDJR';
+  src: url('fonts/FormaDJRBanner-Black-Testing.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Montserrat — display headings and bold numbering */
+/* Inter — email body only, prioritises legibility at small sizes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+
+/*  TOKENS  */
+
+:root {
+  /* Shell — the machine body */
+  --shell-bg:        #1e1e1b;
+  --shell-surface:   #272723;
+  --shell-raised:    #2e2e29;
+  --shell-border:    rgba(255, 255, 255, 0.06);
+  --shell-border-md: rgba(255, 255, 255, 0.10);
+
+  /* Card — the cream document */
+  --card-bg:         #edeade;
+  --card-header:     #e3dfd2;
+  --card-divider:    #cdc9bb;
+  --card-text:       #1a1814;
+  --card-muted:      #6b6455;
+  --card-faint:      #9b9488;
+  --card-border:     #c2bead;
+
+  /* VFD teal — single accent, used sparingly */
+  --teal:            #00c4a7;
+  --teal-dim:        rgba(0, 196, 167, 0.10);
+  --teal-border:     rgba(0, 196, 167, 0.30);
+  --teal-glow:       rgba(0, 196, 167, 0.15);
+
+  /* Braun orange — danger / phishing only */
+  --orange:          #e8430a;
+  --orange-dim:      rgba(232, 67, 10, 0.10);
+  --orange-border:   rgba(232, 67, 10, 0.30);
+
+  /* Feedback states */
+  --correct:         #00c4a7;
+  --incorrect:       #e8430a;
+
+  /* Difficulty indicators */
+  --diff-easy:       #00c4a7;
+  --diff-medium:     #c8a84b;
+  --diff-hard:       #e8430a;
+
+  /* Typography — three-tier system */
+  --font-display: 'Montserrat', 'Helvetica Neue', sans-serif;
+  --font-ui:      'FormaDJR', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+/*  RESET  */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; color-scheme: dark; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--shell-bg);
+  color: rgba(255, 255, 255, 0.75);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/*  SCREEN SYSTEM  */
+
 #app { position: relative; min-height: 100dvh; }
-.screen { position: absolute; inset: 0; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px 20px; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity 240ms ease-out, transform 240ms ease-out; }
-.screen[hidden] { display: flex; }
-.screen.active { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
-.screen.exit   { opacity: 0; transform: translateY(-10px); transition: opacity 180ms ease-in, transform 180ms ease-in; pointer-events: none; }
-.screen-inner { width: 100%; max-width: 520px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
-.screen-inner--game { max-width: 640px; gap: 16px; }
-.brand { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
-.brand::after { content: ''; display: block; width: 36px; height: 1px; background: rgba(255,255,255,0.12); }
-.brand-name    { font-family: var(--font-ui); font-size: clamp(52px,11vw,80px); font-weight: 300; color: rgba(255,255,255,0.92); letter-spacing: 0.08em; text-transform: uppercase; }
-.brand-tagline { font-family: var(--font-ui); font-size: 11px; color: rgba(255,255,255,0.30); letter-spacing: 0.22em; text-transform: uppercase; }
-.high-score-display { font-family: var(--font-ui); font-size: 11px; color: rgba(255,255,255,0.25); }
-.btn { font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 4px; padding: 13px 28px; min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 160ms, transform 100ms; cursor: pointer; }
+
+.screen {
+  position: absolute;
+  inset: 0;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 240ms ease-out, transform 240ms ease-out;
+}
+
+.screen[hidden] { display: flex; } /* keep in DOM for transitions */
+.screen.active  { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
+.screen.exit    { opacity: 0; transform: translateY(-10px); transition: opacity 180ms ease-in, transform 180ms ease-in; pointer-events: none; }
+
+.screen-inner       { width: 100%; max-width: 520px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.screen-inner--game { max-width: 780px; gap: 20px; }
+
+/* Montserrat for screen headings */
+.screen-title    { font-family: var(--font-display); font-size: clamp(22px, 4vw, 30px); font-weight: 700; color: rgba(255,255,255,0.90); letter-spacing: -0.02em; line-height: 1.1; }
+.screen-subtitle { font-family: var(--font-ui); font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.25); letter-spacing: 0.14em; text-transform: uppercase; }
+
+
+/*  BUTTONS  */
+
+.btn {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 13px 28px;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 160ms ease-out, border-color 160ms, opacity 160ms, transform 100ms;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:focus-visible         { outline: 1px solid var(--teal); outline-offset: 3px; }
+.btn:disabled              { opacity: 0.3; cursor: not-allowed; transform: none !important; }
 .btn:active:not(:disabled) { transform: scale(0.975); }
-.btn-lg { font-size: 13px; padding: 15px 44px; min-height: 52px; }
-.btn-primary { background: var(--teal); color: #0e0e0c; font-weight: 600; border: 1px solid transparent; }
-.btn-primary:hover:not(:disabled) { background: #00d4b5; }
-.btn-ghost { background: transparent; color: rgba(255,255,255,0.30); border: 1px solid rgba(255,255,255,0.06); }
+
+/* Large variant — landing CTA */
+.btn-lg { font-size: 14px; padding: 18px 56px; min-height: 58px; letter-spacing: 0.14em; }
+
+/* Primary — teal fill */
+.btn-primary                      { background: var(--teal); color: #0e0e0c; font-weight: 600; border: 1px solid transparent; }
+.btn-primary:hover:not(:disabled) { background: #00d4b5; box-shadow: 0 0 20px var(--teal-glow); }
+
+/* Ghost — outline only */
+.btn-ghost                      { background: transparent; color: rgba(255,255,255,0.32); border: 1px solid rgba(255,255,255,0.06); }
 .btn-ghost:hover:not(:disabled) { border-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.55); }
-.screen-title    { font-family: var(--font-ui); font-size: clamp(22px,4vw,30px); font-weight: 700; color: rgba(255,255,255,0.90); letter-spacing: -0.02em; }
-.screen-subtitle { font-family: var(--font-ui); font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.25); letter-spacing: 0.14em; text-transform: uppercase; }
-.screen-header { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+
+
+/*  LANDING SCREEN  */
+
+/* Brand block — centred, stacked vertically */
+.brand { display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+.brand::after { content: ''; display: block; width: 48px; height: 1px; background: rgba(255,255,255,0.20); margin-top: 4px; }
+
+/* [!] glyph above the wordmark */
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-ui);
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.brand-bracket { color: rgba(255,255,255,0.22); }
+.brand-symbol  { color: var(--teal); }
+
+/* Montserrat for the main wordmark */
+.brand-name {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 14vw, 116px);
+  font-weight: 800;
+  color: rgba(255,255,255,0.94);
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.brand-tagline {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.70);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.high-score-display {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.62);
+  letter-spacing: 0.10em;
+  min-height: 18px;
+}
+
+
+/*  DIFFICULTY SCREEN  */
+
+.screen-header   { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
 .difficulty-grid { display: grid; grid-template-columns: 1fr; gap: 8px; width: 100%; }
-.difficulty-card { background: var(--shell-surface); border: 1px solid var(--shell-border); border-left: 3px solid transparent; border-radius: 4px; padding: 20px 24px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: background 160ms, border-color 160ms; }
-.difficulty-card:hover { background: var(--shell-raised); }
-.difficulty-card[data-difficulty="easy"]:hover   { border-left-color: var(--diff-easy); }
-.difficulty-card[data-difficulty="medium"]:hover { border-left-color: var(--diff-medium); }
-.difficulty-card[data-difficulty="hard"]:hover   { border-left-color: var(--diff-hard); }
-.diff-label { font-family: var(--font-ui); font-size: 18px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
-.diff-easy { color: var(--diff-easy); } .diff-medium { color: var(--diff-medium); } .diff-hard { color: var(--diff-hard); }
-.diff-pts  { font-family: var(--font-ui); font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.28); letter-spacing: 0.10em; text-transform: uppercase; }
-.diff-desc { font-family: var(--font-ui); font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.38); line-height: 1.5; }
-.diff-max  { font-family: var(--font-ui); font-size: 9px; font-weight: 300; color: rgba(255,255,255,0.16); letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* Each card acts like a selector switch on a Braun device */
+.difficulty-card {
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-left: 3px solid transparent; /* coloured on hover / selected */
+  border-radius: 4px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 160ms, background 160ms, transform 100ms;
+}
+
+.difficulty-card:hover         { background: var(--shell-raised); border-color: rgba(255,255,255,0.10); }
+.difficulty-card:active        { transform: scale(0.99); }
+.difficulty-card:focus-visible { outline: 1px solid var(--teal); outline-offset: 2px; }
+
+/* Coloured left border on hover and when selected */
+.difficulty-card[data-difficulty="easy"]:hover,
+.difficulty-card[data-difficulty="easy"].selected   { border-left-color: var(--diff-easy); }
+.difficulty-card[data-difficulty="medium"]:hover,
+.difficulty-card[data-difficulty="medium"].selected { border-left-color: var(--diff-medium); }
+.difficulty-card[data-difficulty="hard"]:hover,
+.difficulty-card[data-difficulty="hard"].selected   { border-left-color: var(--diff-hard); }
+
+/* Montserrat for difficulty level names */
+.diff-label  { font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
+.diff-easy   { color: var(--diff-easy); }
+.diff-medium { color: var(--diff-medium); }
+.diff-hard   { color: var(--diff-hard); }
+.diff-pts    { font-family: var(--font-ui); font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.28); letter-spacing: 0.10em; text-transform: uppercase; }
+.diff-desc   { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.5; }
+.diff-max    { font-family: var(--font-ui); font-size: 9px; font-weight: 300; color: rgba(255,255,255,0.16); letter-spacing: 0.12em; text-transform: uppercase; }
+
+
+/*  GAME SCREEN  */
+
+/* Header row — progress label, score, and progress bar */
 .game-header { width: 100%; display: flex; flex-direction: column; gap: 8px; }
-.game-meta   { display: flex; justify-content: space-between; }
-.meta-label  { font-family: var(--font-ui); font-size: 11px; color: rgba(255,255,255,0.26); letter-spacing: 0.10em; text-transform: uppercase; }
+.game-meta   { display: flex; justify-content: space-between; align-items: center; }
+.meta-label  { font-family: var(--font-ui); font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.26); letter-spacing: 0.12em; text-transform: uppercase; }
 .meta-score  { color: var(--teal); }
-.progress-track { width: 100%; height: 2px; background: var(--shell-raised); }
-.progress-fill  { height: 100%; background: var(--teal); width: 10%; transition: width 280ms; }
-.email-card { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 6px 24px rgba(0,0,0,0.5); }
-.email-header { padding: 20px 24px 16px; background: var(--card-header); display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid var(--card-divider); }
-.email-field { display: grid; grid-template-columns: 52px 1fr; align-items: baseline; gap: 8px; }
-.email-field-label { font-family: var(--font-ui); font-size: 9px; font-weight: 500; color: var(--card-faint); letter-spacing: 0.14em; text-transform: uppercase; }
-.email-field-value { font-family: var(--font-body); font-size: 13px; color: var(--card-muted); }
-.email-subject { font-size: 15px; font-weight: 600; color: var(--card-text); }
+
+/* Progress bar — thin and precise like a Braun meter */
+.progress-track { width: 100%; height: 2px; background: var(--shell-raised); border-radius: 1px; overflow: hidden; }
+.progress-fill  { height: 100%; background: var(--teal); width: 10%; transition: width 280ms cubic-bezier(0.4,0,0.2,1); }
+
+/* Small wordmark above the email card */
+.game-wordmark {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.16);
+  width: 100%;
+  text-align: left;
+  user-select: none;
+  margin-bottom: -8px;
+}
+
+.game-wordmark span { color: var(--teal); }
+
+
+/*  EMAIL CARD  */
+
+/* Cream document sitting inside the dark machine shell */
+.email-card {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  overflow: hidden;
+  /* Layered shadow — lifts the document off the dark surface */
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.10),
+    0 2px 4px rgba(0,0,0,0.40),
+    0 8px 20px rgba(0,0,0,0.50),
+    0 24px 48px rgba(0,0,0,0.30);
+  transition: box-shadow 240ms ease-out;
+}
+
+/* Header zone — gradient from slightly darker to card-header */
+.email-header {
+  padding: 24px 32px 20px;
+  background: linear-gradient(180deg, #d9d4c4 0%, var(--card-header) 55%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid var(--card-divider);
+  position: relative;
+}
+
+/* Subtle "unread" left indicator stripe */
+.email-header::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--teal);
+  opacity: 0.45;
+}
+
+.email-field       { display: grid; grid-template-columns: 52px 1fr; align-items: baseline; gap: 8px; }
+.email-field-label { font-family: var(--font-ui); font-size: 9px; font-weight: 500; color: var(--card-faint); letter-spacing: 0.18em; text-transform: uppercase; padding-top: 1px; }
+.email-field-value { font-family: var(--font-body); font-size: 13px; color: var(--card-muted); line-height: 1.4; word-break: break-all; letter-spacing: 0.01em; }
+
+/* Subject is the document's title — Montserrat, prominent */
+.email-subject {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--card-text);
+  word-break: normal;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
 .email-divider { height: 1px; background: var(--card-divider); }
-.email-body { padding: 24px; font-family: var(--font-body); font-size: 14px; color: var(--card-text); line-height: 1.85; white-space: pre-wrap; min-height: 160px; max-height: 280px; overflow-y: auto; }
+
+/* Body — Inter for readability, dark text on cream */
+/* Subtle lined-paper texture via repeating gradient */
+.email-body {
+  padding: 28px 32px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--card-text);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 240px;
+  max-height: 420px;
+  overflow-y: auto;
+  background:
+    repeating-linear-gradient(
+      transparent 0px,
+      transparent 29px,
+      rgba(26, 24, 20, 0.04) 29px,
+      rgba(26, 24, 20, 0.04) 30px
+    ),
+    var(--card-bg);
+  background-size: 100% 30px;
+}
+
+.email-body::-webkit-scrollbar       { width: 3px; }
+.email-body::-webkit-scrollbar-track { background: var(--card-header); }
+.email-body::-webkit-scrollbar-thumb { background: var(--card-divider); border-radius: 2px; }
+
+
+/*  CLASSIFY BUTTONS  */
+
 .classify-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-.btn-classify { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; border-radius: 4px; padding: 16px; min-height: 52px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; transition: background 160ms, transform 100ms; cursor: pointer; }
-.btn-classify:disabled              { opacity: 0.28; cursor: not-allowed; }
+
+/* Base — shared between phishing and safe */
+.btn-classify {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 18px;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  transition: background 160ms, border-color 160ms, transform 100ms;
+  cursor: pointer;
+}
+
+.btn-classify:focus-visible         { outline: 1px solid rgba(255,255,255,0.4); outline-offset: 2px; }
+.btn-classify:disabled              { opacity: 0.28; cursor: not-allowed; transform: none !important; }
 .btn-classify:active:not(:disabled) { transform: scale(0.975); }
-.btn-phishing { background: var(--orange-dim); color: #f5a882; border-color: var(--orange-border); border-left: 3px solid var(--orange); }
-.btn-phishing:hover:not(:disabled) { background: rgba(232,67,10,0.16); }
-.btn-safe     { background: var(--teal-dim); color: #5de0ce; border-color: var(--teal-border); border-left: 3px solid var(--teal); }
-.btn-safe:hover:not(:disabled)     { background: rgba(0,196,167,0.16); }
-.feedback-panel { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border); border-top: 3px solid var(--card-divider); border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 6px 24px rgba(0,0,0,0.5); transition: border-top-color 240ms; }
+
+/* Phishing — Braun orange, left border stripe as indicator */
+.btn-phishing                      { background: var(--orange-dim); color: #f5a882; border-color: var(--orange-border); border-left: 3px solid var(--orange); }
+.btn-phishing:hover:not(:disabled) { background: rgba(232,67,10,0.16); border-color: rgba(232,67,10,0.45); }
+
+/* Safe — VFD teal, left border stripe as indicator */
+.btn-safe                      { background: var(--teal-dim); color: #5de0ce; border-color: var(--teal-border); border-left: 3px solid var(--teal); }
+.btn-safe:hover:not(:disabled) { background: rgba(0,196,167,0.16); border-color: rgba(0,196,167,0.45); }
+
+.btn-icon { flex-shrink: 0; }
+
+
+/*  FEEDBACK SCREEN  */
+
+/* Printout aesthetic — top border coloured by result */
+.feedback-panel {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 4px solid var(--card-divider); /* overridden by correct/incorrect */
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.10),
+    0 2px 4px rgba(0,0,0,0.40),
+    0 8px 20px rgba(0,0,0,0.50);
+  transition: border-top-color 240ms ease-out;
+}
+
 .feedback-panel.correct   { border-top-color: var(--correct); }
 .feedback-panel.incorrect { border-top-color: var(--incorrect); }
-.feedback-verdict { display: flex; align-items: center; gap: 16px; padding: 20px 24px; background: var(--card-header); border-bottom: 1px solid var(--card-divider); }
-.feedback-icon { width: 38px; height: 38px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; flex-shrink: 0; border: 1px solid transparent; }
-.feedback-panel.correct   .feedback-icon { background: rgba(0,196,167,0.12); border-color: rgba(0,196,167,0.28); color: var(--correct); }
-.feedback-panel.incorrect .feedback-icon { background: rgba(232,67,10,0.10); border-color: rgba(232,67,10,0.25); color: var(--incorrect); }
+
+/* Verdict row — icon, result text, score delta */
+.feedback-verdict {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--shell-surface);
+  border-bottom: 1px solid var(--shell-border);
+}
+
+.feedback-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+
+.feedback-panel.correct   .feedback-icon { background: rgba(0,196,167,0.18); border-color: rgba(0,196,167,0.45); color: var(--correct); }
+.feedback-panel.incorrect .feedback-icon { background: rgba(232,67,10,0.16); border-color: rgba(232,67,10,0.40); color: var(--incorrect); }
+
 .feedback-verdict-text { display: flex; flex-direction: column; gap: 3px; }
-.feedback-result { font-family: var(--font-ui); font-size: 20px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* Montserrat for feedback result label */
+.feedback-result       { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
 .feedback-panel.correct   .feedback-result { color: var(--correct); }
 .feedback-panel.incorrect .feedback-result { color: var(--incorrect); }
-.feedback-delta { font-family: var(--font-ui); font-size: 10px; font-weight: 300; color: var(--card-muted); }
+.feedback-delta { font-family: var(--font-ui); font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.40); letter-spacing: 0.06em; }
+
+/* Explanation zone — Inter body text on cream */
 .feedback-body          { padding: 20px 24px 24px; background: var(--card-bg); }
-.feedback-section-label { font-family: var(--font-ui); font-size: 9px; color: var(--card-faint); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 12px; }
+.feedback-section-label { font-family: var(--font-ui); font-size: 9px; font-weight: 400; color: var(--card-faint); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
 .feedback-explanation   { font-family: var(--font-body); font-size: 14px; color: var(--card-text); line-height: 1.80; }
-.end-title { text-align: center; color: rgba(255,255,255,0.88); letter-spacing: 0.04em; text-transform: uppercase; font-weight: 300; }
+
+
+/*  END SCREEN  */
+
+/* Montserrat for end screen title */
+.end-title { font-family: var(--font-display); text-align: center; color: rgba(255,255,255,0.88); letter-spacing: -0.02em; text-transform: uppercase; font-weight: 700; }
+
+/* Three figures like a Braun clock face */
 .end-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; width: 100%; }
 .end-stat  { background: var(--shell-surface); border: 1px solid var(--shell-border); border-radius: 4px; padding: 20px 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
-.end-stat-label { font-family: var(--font-ui); font-size: 9px; font-weight: 300; color: rgba(255,255,255,0.20); letter-spacing: 0.14em; text-transform: uppercase; }
-.end-stat-value { font-family: var(--font-ui); font-size: clamp(28px,5vw,38px); font-weight: 300; color: rgba(255,255,255,0.85); letter-spacing: 0.02em; }
-.end-stat-best { color: var(--teal); }
-.new-record { font-family: var(--font-ui); font-size: 10px; color: var(--teal); letter-spacing: 0.16em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--teal-border); border-radius: 3px; background: var(--teal-dim); }
+
+.end-stat-label { font-family: var(--font-ui); font-size: 9px; font-weight: 300; color: rgba(255,255,255,0.20); letter-spacing: 0.16em; text-transform: uppercase; }
+
+/* Bold display numbers — Montserrat 700 */
+.end-stat-value { font-family: var(--font-display); font-size: clamp(28px,5vw,38px); font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: -0.03em; line-height: 1; }
+.end-stat-best  { color: var(--teal); } /* high score in teal — the VFD glow */
+
+/* New record badge */
+.new-record {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--teal);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--teal-border);
+  border-radius: 3px;
+  background: var(--teal-dim);
+}
+
 .end-actions { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
-@media (max-width: 400px) { .classify-actions { grid-template-columns: 1fr; } .end-stats { grid-template-columns: 1fr; } }
-@media (min-width: 600px) { .difficulty-grid { grid-template-columns: repeat(3,1fr); } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } }
+
+
+/*  RESPONSIVE  */
+
+/* Small phones */
+@media (max-width: 400px) {
+  .brand-name       { font-size: 58px; letter-spacing: -0.04em; }
+  .classify-actions { grid-template-columns: 1fr; }
+  .end-stats        { grid-template-columns: 1fr; }
+  .email-body       { font-size: 13px; max-height: 200px; padding: 16px; }
+  .email-header, .feedback-verdict, .feedback-body { padding: 16px; }
+}
+
+/* Tablets — 3-column difficulty grid */
+@media (min-width: 600px) {
+  .difficulty-grid { grid-template-columns: repeat(3,1fr); }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .screen { padding: 32px 24px; }
+}
+
+
+/*  SCROLLBAR  */
+
+* { scrollbar-width: thin; scrollbar-color: var(--card-divider) var(--card-header); }
+
+
+/*  REDUCED MOTION  */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+  .progress-fill          { transition: none !important; }
+}

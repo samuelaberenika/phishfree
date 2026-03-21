@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishFree — Can You Spot the Threat?</title>
+  <meta name="description" content="Train your instincts to identify phishing emails. Interactive cybersecurity awareness game.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!--  LANDING SCREEN  -->
+    <section id="screen-landing" class="screen active" aria-label="Landing">
+      <div class="screen-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="brand-bracket">[</span>
+            <span class="brand-symbol">!</span>
+            <span class="brand-bracket">]</span>
+          </div>
+          <h1 class="brand-name">PhishFree</h1>
+          <p class="brand-tagline">Train your instincts. Spot the threat.</p>
+        </div>
+        <button id="btn-start" class="btn btn-primary btn-lg">
+          Start Training
+        </button>
+        <p id="landing-high-score" class="high-score-display" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!--  DIFFICULTY SCREEN  -->
+    <section id="screen-difficulty" class="screen" aria-label="Select difficulty" hidden>
+      <div class="screen-inner">
+        <div class="screen-header">
+          <h2 class="screen-title">Select Difficulty</h2>
+          <p class="screen-subtitle">Choose your training intensity</p>
+        </div>
+        <div class="difficulty-grid" role="radiogroup" aria-label="Difficulty selection">
+          <button class="difficulty-card" data-difficulty="easy" aria-label="Easy — 10 points per email">
+            <span class="diff-label diff-easy">Easy</span>
+            <span class="diff-pts">10 pts / email</span>
+            <span class="diff-desc">Obvious red flags. Build your foundations.</span>
+            <span class="diff-max">Max score: 100</span>
+          </button>
+          <button class="difficulty-card" data-difficulty="medium" aria-label="Medium — 25 points per email">
+            <span class="diff-label diff-medium">Medium</span>
+            <span class="diff-pts">25 pts / email</span>
+            <span class="diff-desc">Subtle cues. Test your real awareness.</span>
+            <span class="diff-max">Max score: 250</span>
+          </button>
+          <button class="difficulty-card" data-difficulty="hard" aria-label="Hard — 50 points per email">
+            <span class="diff-label diff-hard">Hard</span>
+            <span class="diff-pts">50 pts / email</span>
+            <span class="diff-desc">Near-perfect forgeries. Expert level.</span>
+            <span class="diff-max">Max score: 500</span>
+          </button>
+        </div>
+        <button id="btn-back-landing" class="btn btn-ghost">← Back</button>
+      </div>
+    </section>
+
+    <!--  GAME SCREEN  -->
+    <section id="screen-game" class="screen" aria-label="Email classification" hidden>
+      <div class="screen-inner screen-inner--game">
+
+        <header class="game-header">
+          <div class="game-meta">
+            <span id="game-progress-label" class="meta-label" aria-live="polite">Email 1 of 10</span>
+            <span id="game-score-label" class="meta-label meta-score">Score: 0</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10">
+            <div id="progress-bar" class="progress-fill"></div>
+          </div>
+        </header>
+
+        <div class="game-wordmark" aria-hidden="true">Phish<span>Free</span></div>
+
+        <article id="email-card" class="email-card" aria-label="Email to classify">
+          <div class="email-header">
+            <div class="email-field">
+              <span class="email-field-label">From</span>
+              <span id="email-from" class="email-field-value"></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Subject</span>
+              <span id="email-subject" class="email-field-value email-subject"></span>
+            </div>
+          </div>
+          <div class="email-divider" aria-hidden="true"></div>
+          <div id="email-body" class="email-body"></div>
+        </article>
+
+        <div class="classify-actions">
+          <button id="btn-phishing" class="btn btn-classify btn-phishing" aria-label="Mark this email as phishing">
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 1L14.5 13H1.5L8 1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M8 6V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="11.5" r="0.75" fill="currentColor"/>
+            </svg>
+            Mark as Phishing
+          </button>
+          <button id="btn-safe" class="btn btn-classify btn-safe" aria-label="Mark this email as safe">
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Mark as Safe
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!--  FEEDBACK SCREEN  -->
+    <section id="screen-feedback" class="screen" aria-label="Classification feedback" hidden>
+      <div class="screen-inner">
+
+        <div id="feedback-panel" class="feedback-panel" role="status" aria-live="assertive">
+          <div class="feedback-verdict">
+            <span id="feedback-icon" class="feedback-icon" aria-hidden="true"></span>
+            <div class="feedback-verdict-text">
+              <span id="feedback-text" class="feedback-result"></span>
+              <span id="feedback-score-delta" class="feedback-delta"></span>
+            </div>
+          </div>
+          <div class="feedback-divider" aria-hidden="true"></div>
+          <div class="feedback-body">
+            <p class="feedback-section-label">What to look for</p>
+            <p id="feedback-explanation" class="feedback-explanation"></p>
+          </div>
+        </div>
+
+        <button id="btn-continue" class="btn btn-primary">Continue →</button>
+
+      </div>
+    </section>
+
+    <!--  END SCREEN  -->
+    <section id="screen-end" class="screen" aria-label="Round complete" hidden>
+      <div class="screen-inner">
+
+        <h2 id="end-title" class="screen-title end-title"></h2>
+
+        <div class="end-stats">
+          <div class="end-stat">
+            <span class="end-stat-label">Your Score</span>
+            <span id="end-score" class="end-stat-value"></span>
+          </div>
+          <div class="end-stat">
+            <span class="end-stat-label">Best Score</span>
+            <span id="end-high-score" class="end-stat-value end-stat-best"></span>
+          </div>
+          <div class="end-stat">
+            <span class="end-stat-label">Accuracy</span>
+            <span id="end-accuracy" class="end-stat-value"></span>
+          </div>
+        </div>
+
+        <div id="end-new-record" class="new-record" hidden aria-live="polite">
+          New Record
+        </div>
+
+        <div class="end-actions">
+          <button id="btn-play-again" class="btn btn-primary btn-lg">Play Again</button>
+          <button id="btn-change-difficulty" class="btn btn-ghost">Change Difficulty</button>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /#app -->
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>
