@@ -157,11 +157,33 @@
     $('feedback-explanation').textContent = result.email.indicators;
   }
 
+  /*  JSON flat file output - writes round result to phishfree_result.json  */
+  function saveResult(summary) {
+    const result = {
+      date:       new Date().toISOString(),
+      difficulty: summary.difficulty,
+      score:      summary.score,
+      accuracy:   summary.accuracy,
+      correct:    summary.correctCount,
+      total:      summary.total
+    };
+    const blob = new Blob(
+      [JSON.stringify(result, null, 2)],
+      { type: 'application/json' }
+    );
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'phishfree_result.json';
+    a.click();
+  }
+
   $('btn-continue').addEventListener('click', () => {
     game.loadNextEmail();
 
     if (game.isRoundOver()) {
-      renderEnd();
+      const summary = game.getRoundSummary();
+      saveResult(summary);
+      renderEnd(summary);
       showScreen('end');
     } else {
       renderGame();
@@ -171,8 +193,7 @@
 
   /*  END SCREEN  */
 
-  function renderEnd() {
-    const summary = game.getRoundSummary();
+  function renderEnd(summary) {
 
     // Dynamic title based on accuracy
     const title =
@@ -209,7 +230,7 @@
     showScreen('difficulty');
   });
 
-  /*  KEYBOARD NAVIGATION - Space/Enter on classify buttons respects the lock  */
+  /*  KEYBOARD NAVIGATION - P/S keys as shortcuts for classify buttons  */
 
   document.addEventListener('keydown', e => {
     if (activeScreen !== 'game') return;
@@ -217,8 +238,10 @@
     if (e.key === '2' || e.key === 's') handleClassify('safe');
   });
 
-  /*  INIT  */
+  /*  INIT - load email dataset from JSON flat file before rendering  */
 
-  renderLanding();
+  loadEmails().then(() => {
+    renderLanding();
+  });
 
 })();
