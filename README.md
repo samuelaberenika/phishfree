@@ -4,10 +4,6 @@
 
 A gamified phishing awareness Single Page Application built with Vanilla JavaScript.
 
-## Live Demo
-
-> [phishfree-delta.vercel.app](https://phishfree-delta.vercel.app/)
-
 ## About
 
 PhishFree is a browser-based SPA designed to help university students and staff
