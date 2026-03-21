@@ -1,6 +1,6 @@
 /*  PhishFree - ui.js
-   Screen management, transitions, rendering, user interactions
-  */
+    Screen management, transitions, rendering, user interactions
+*/
 
 'use strict';
 
@@ -8,8 +8,8 @@
 
   /*  STATE  */
 
-  const game          = new GameController();
-  let   activeScreen  = 'landing';
+  const game           = new GameController();
+  let   activeScreen   = 'home';
   let   classifyLocked = false;
 
   /*  DOM REFERENCES  */
@@ -18,6 +18,7 @@
   const $$ = sel => document.querySelectorAll(sel);
 
   const screens = {
+    home:       $('screen-home'),
     landing:    $('screen-landing'),
     difficulty: $('screen-difficulty'),
     game:       $('screen-game'),
@@ -34,31 +35,72 @@
     const next = screens[id];
     if (!prev || !next) return;
 
-    // Exit current
     prev.classList.add('exit');
     prev.classList.remove('active');
 
     setTimeout(() => {
       prev.classList.remove('exit');
-      prev.removeAttribute('hidden'); // keep in DOM for transitions
-      // Enter next
+      prev.removeAttribute('hidden');
       next.classList.add('active');
       activeScreen = id;
     }, 210);
   }
 
-  /*  LANDING SCREEN  */
+  /*  HOME SCREEN (landing.html content)  */
+
+  const btnPlayNow = $('btn-play-now');
+  if (btnPlayNow) {
+    btnPlayNow.addEventListener('click', () => {
+      game.setCategory(null);
+      renderDifficulty();
+      showScreen('difficulty');
+    });
+  }
+
+  const btnHeroPlay = $('btn-hero-play');
+  if (btnHeroPlay) {
+    btnHeroPlay.addEventListener('click', () => {
+      game.setCategory(null);
+      renderDifficulty();
+      showScreen('difficulty');
+    });
+  }
+
+  const btnCtaPlay = $('btn-cta-play');
+  if (btnCtaPlay) {
+    btnCtaPlay.addEventListener('click', () => {
+      game.setCategory(null);
+      renderDifficulty();
+      showScreen('difficulty');
+    });
+  }
+
+  // Mission cards - Begin Mission buttons with data-category
+  $$('.mission-btn[data-category]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.category;
+      game.setCategory(category);
+      renderDifficulty();
+      showScreen('difficulty');
+    });
+  });
+
+  /*  SPLASH / LANDING SCREEN  */
 
   function renderLanding() {
     const hs   = game.highScore;
     const hsEl = $('landing-high-score');
-    hsEl.textContent = hs > 0 ? `Best score: ${hs}` : '';
+    if (hsEl) hsEl.textContent = hs > 0 ? `Best score: ${hs}` : '';
   }
 
-  $('btn-start').addEventListener('click', () => {
-    renderDifficulty();
-    showScreen('difficulty');
-  });
+  const btnStart = $('btn-start');
+  if (btnStart) {
+    btnStart.addEventListener('click', () => {
+      game.setCategory(null);
+      renderDifficulty();
+      showScreen('difficulty');
+    });
+  }
 
   /*  DIFFICULTY SCREEN  */
 
@@ -80,10 +122,12 @@
     });
   });
 
-  $('btn-back-landing').addEventListener('click', () => {
-    renderLanding();
-    showScreen('landing');
-  });
+  const btnBackLanding = $('btn-back-landing');
+  if (btnBackLanding) {
+    btnBackLanding.addEventListener('click', () => {
+      showScreen('home');
+    });
+  }
 
   /*  GAME SCREEN  */
 
@@ -91,29 +135,32 @@
     const email = game.getCurrentEmail();
     if (!email) return;
 
-    // Unlock classify buttons
     classifyLocked = false;
     $('btn-phishing').disabled = false;
     $('btn-safe').disabled     = false;
 
-    // Progress
     const { current, total, percentage } = game.getProgress();
     $('game-progress-label').textContent = `Email ${current} of ${total}`;
     $('game-score-label').textContent    = `Score: ${game.score}`;
     $('progress-bar').style.width        = `${percentage}%`;
 
-    // Update aria progressbar
     const track = document.querySelector('.progress-track');
     if (track) track.setAttribute('aria-valuenow', percentage);
 
-    // Email content
     $('email-from').textContent    = email.sender;
     $('email-subject').textContent = email.subject;
     $('email-body').textContent    = email.body;
 
-    // Scroll email body to top for each new email
     const body = $('email-body');
     if (body) body.scrollTop = 0;
+  }
+
+  // Exit game - returns to home screen
+  const btnExitGame = $('btn-exit-game');
+  if (btnExitGame) {
+    btnExitGame.addEventListener('click', () => {
+      showScreen('home');
+    });
   }
 
   /*  Double-click guard - disable both buttons immediately on first click  */
@@ -141,19 +188,14 @@
     panel.classList.remove('correct', 'incorrect');
     panel.classList.add(result.isCorrect ? 'correct' : 'incorrect');
 
-    // Icon
     $('feedback-icon').textContent = result.isCorrect ? '✓' : '✗';
-
-    // Verdict text
     $('feedback-text').textContent = result.isCorrect ? 'Correct' : 'Incorrect';
 
-    // Score delta
     const pts = GameController.POINTS[game.difficulty];
     $('feedback-score-delta').textContent = result.isCorrect
       ? `+${pts} points  ·  Running score: ${result.currentScore}`
       : `No points  ·  Running score: ${result.currentScore}`;
 
-    // Explanation
     $('feedback-explanation').textContent = result.email.indicators;
   }
 
@@ -162,6 +204,7 @@
     const result = {
       date:       new Date().toISOString(),
       difficulty: summary.difficulty,
+      category:   summary.category || 'all',
       score:      summary.score,
       accuracy:   summary.accuracy,
       correct:    summary.correctCount,
@@ -194,12 +237,10 @@
   /*  END SCREEN  */
 
   function renderEnd(summary) {
-
-    // Dynamic title based on accuracy
     const title =
-      summary.accuracy >= 90 ? 'Exceptional' :
-      summary.accuracy >= 70 ? 'Well Done'   :
-      summary.accuracy >= 50 ? 'Keep At It'  :
+      summary.accuracy >= 90 ? 'Exceptional'       :
+      summary.accuracy >= 70 ? 'Well Done'          :
+      summary.accuracy >= 50 ? 'Keep At It'         :
       'More Practice Needed';
 
     $('end-title').textContent      = title;
@@ -210,7 +251,6 @@
     const recordEl = $('end-new-record');
     recordEl.hidden = !summary.isNewRecord;
 
-    // Sync landing high score
     const hsEl = $('landing-high-score');
     if (hsEl) {
       hsEl.textContent = summary.highScore > 0

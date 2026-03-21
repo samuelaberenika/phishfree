@@ -1,6 +1,6 @@
 /*  PhishFree - game.js
-   GameController: game state, scoring, LocalStorage, email sampling
-  */
+    GameController: game state, scoring, LocalStorage, email sampling
+*/
 
 'use strict';
 
@@ -21,6 +21,7 @@ class GameController {
 
   constructor() {
     this.difficulty     = this._loadDifficulty();
+    this.category       = null;
     this.emails         = [];
     this.currentIndex   = 0;
     this.score          = 0;
@@ -34,6 +35,12 @@ class GameController {
   setDifficulty(difficulty) {
     this.difficulty = difficulty;
     this._saveDifficulty(difficulty);
+  }
+
+  /*  Set category filter - pass null to play all categories  */
+  setCategory(category) {
+    const valid = ['corporate', 'bank', 'social', 'academic', null];
+    this.category = valid.includes(category) ? category : null;
   }
 
   startRound() {
@@ -118,6 +125,7 @@ class GameController {
       total:        GameController.EMAILS_PER_ROUND,
       accuracy:     Math.round((this.correctCount / GameController.EMAILS_PER_ROUND) * 100),
       difficulty:   this.difficulty,
+      category:     this.category,
     };
   }
 
@@ -165,10 +173,20 @@ class GameController {
     }
   }
 
-  /*  EMAIL SAMPLING - balanced phishing/safe mix  */
+  /*  EMAIL SAMPLING - category filter + balanced phishing/safe mix  */
 
   _sampleEmails() {
-    const pool = EMAIL_DATA.filter(e => e.difficulty === this.difficulty);
+    // Start with difficulty filter
+    let pool = EMAIL_DATA.filter(e => e.difficulty === this.difficulty);
+
+    // Apply category filter if one is set - only if pool is large enough
+    if (this.category) {
+      const categoryPool = pool.filter(e => e.category === this.category);
+      // Use category filter only if there are at least 6 emails in the pool
+      if (categoryPool.length >= 6) {
+        pool = categoryPool;
+      }
+    }
 
     const phishing = this._shuffle(pool.filter(e => e.isPhishing));
     const safe     = this._shuffle(pool.filter(e => !e.isPhishing));
